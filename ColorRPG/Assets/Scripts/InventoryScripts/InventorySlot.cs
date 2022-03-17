@@ -8,7 +8,14 @@ public class InventorySlot : MonoBehaviour
     private Item item;
 
     public Image icon;
+    public Text amountText;
 
+    public int numOfItem = 0;
+
+    /// <summary>
+    /// Add a item to the slot
+    /// </summary>
+    /// <param name="newItem">The item to add</param>
     public void AddItem(Item newItem)
     {
         item = newItem;
@@ -17,6 +24,9 @@ public class InventorySlot : MonoBehaviour
         icon.enabled = true;
     }
 
+    /// <summary>
+    /// Clears the slot of items
+    /// </summary>
     public void ClearSlot()
     {
         item = null;
@@ -25,6 +35,9 @@ public class InventorySlot : MonoBehaviour
         icon.enabled = false;
     }
 
+    /// <summary>
+    /// Use the item in this slot
+    /// </summary>
     public void UseItem()
     {
         if (item != null)

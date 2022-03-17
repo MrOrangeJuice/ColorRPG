@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 14.3, y: -11.807}
-  m_SizeDelta: {x: 14.7676, y: 16.3855}
+  m_AnchoredPosition: {x: 13.1628, y: -11.807}
+  m_SizeDelta: {x: 17.0419, y: 16.3855}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5665408200218096488
 CanvasRenderer:
@@ -78,7 +78,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: '0
+
+'
 --- !u!1 &431842177471772537
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,4 +340,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 3603470270037962660}
-  CharacterItemSelectReference: {fileID: 0}
+  amountText: {fileID: 3312298571179079343}
+  numOfItem: 0
