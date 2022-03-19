@@ -15,6 +15,8 @@ public class Inventory : MonoBehaviour
     public Item healthPotionRef;
     public InventoryUI inventoryUI;
 
+    public int numOfCurrency = 0;
+
     private void Awake()
     {
         if(instance != null)
@@ -32,6 +34,12 @@ public class Inventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             Add(healthPotionRef);
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            numOfCurrency += 1;
+            inventoryUI.UpdateUI();
         }
     }
 

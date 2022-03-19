@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
     public Transform itemsParent;
-    public GameObject inventoryUI;
+    public Text currencyText;
 
     private Inventory inventory;
 
@@ -20,15 +21,6 @@ public class InventoryUI : MonoBehaviour
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //Open/Close Inventory
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            inventoryUI.SetActive(!inventoryUI.activeSelf);
-        }
-    }
 
     /// <summary>
     /// Adds or Clears Item Slots As Necessary
@@ -46,6 +38,8 @@ public class InventoryUI : MonoBehaviour
                 slots[i].ClearSlot();
             }
         }
+
+        currencyText.text = "Currency: " + inventory.numOfCurrency;
     }
 
     /// <summary>

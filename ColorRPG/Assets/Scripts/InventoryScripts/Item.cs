@@ -7,6 +7,7 @@ public class Item : ScriptableObject
 {
     new public string name = "New Item";
     public Sprite icon = null;
+    public int amountSoldFor = 1;
 
     /// <summary>
     /// Item's effect on use
@@ -15,6 +16,12 @@ public class Item : ScriptableObject
     public virtual void Use(string colorToUseOn)
     {
         Debug.Log("Use " + name + " on " + colorToUseOn);
+        Inventory.instance.Remove(this);
+    }
+
+    public virtual void Sell()
+    {
+        Inventory.instance.numOfCurrency += amountSoldFor;
         Inventory.instance.Remove(this);
     }
 }

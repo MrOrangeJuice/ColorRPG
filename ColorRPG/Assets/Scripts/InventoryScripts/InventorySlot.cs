@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-    private Item item;
+    Item item;
 
     public Image icon;
     public Text amountText;
 
-    public int numOfItem = 0;
+    public int numOfItem = 0; 
 
     /// <summary>
     /// Add a item to the slot
@@ -22,6 +22,7 @@ public class InventorySlot : MonoBehaviour
 
         icon.sprite = item.icon;
         icon.enabled = true;
+        amountText.enabled = true;
     }
 
     /// <summary>
@@ -33,6 +34,7 @@ public class InventorySlot : MonoBehaviour
 
         icon.sprite = null;
         icon.enabled = false;
+        amountText.enabled = false;
     }
 
     /// <summary>
@@ -42,8 +44,18 @@ public class InventorySlot : MonoBehaviour
     {
         if (item != null)
         {
-            UIManager.instance.characterItemSelectRef.SetActive(true);
             UIManager.instance.itemToUse = item;
+
+            //If Shop is Open Prompt Player to Sell Item
+            if (UIManager.instance.shopUIRef.activeSelf)
+            {
+                UIManager.instance.SpawnSellPrompt();
+            }
+            else
+            {
+                UIManager.instance.characterItemSelectRef.SetActive(true);            
+            }
+
         }
     }
 }
