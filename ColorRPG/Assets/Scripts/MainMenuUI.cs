@@ -20,7 +20,8 @@ public class MainMenuUI : MonoBehaviour
 
         if (UIManager.instance != null)
         {
-            UIManager.instance.gameScene = true;
+            UIManager.instance.townScene = true;
+            UIManager.instance.townMenuRef.SetActive(true);
         }
     }
 }
