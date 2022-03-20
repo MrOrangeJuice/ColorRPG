@@ -19,6 +19,9 @@ public class Item : ScriptableObject
         Inventory.instance.Remove(this);
     }
 
+    /// <summary>
+    /// Removes the item from inventory and updates the player's currency
+    /// </summary>
     public virtual void Sell()
     {
         Inventory.instance.numOfCurrency += amountSoldFor;
