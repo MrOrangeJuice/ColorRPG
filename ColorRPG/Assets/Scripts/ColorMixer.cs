@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ColorMixer : MonoBehaviour
 {
+    //Data and method for mixing reflectance curves from this blog post: http://scottburns.us/reflectance-curves-from-srgb/
     //Sorry for the formatting i figured out a better way to do this halfway through
     float[,] B12 = new float[,] { { 0.0933f, - 0.1729f, 1.0796f }, { 0.0933f, - 0.1728f, 1.0796f, }, { 0.0932f, - 0.1725f, 1.0794f }, { 0.0927f, - 0.1710f, 1.0783f }, { 0.0910f, - 0.1654f, 1.0744f }, { 0.0854f, - 0.1469f, 1.0615f }, { 0.0723f, - 0.1031f, 1.0308f }, { 0.0487f, - 0.0223f, 0.9736f }, { 0.0147f,  0.0980f,  0.8873f }, { -0.0264f, 0.2513f, 0.7751f }, { -0.0693f, 0.4234f,  0.6459f }, { -0.1080f,   0.5983f,  0.5097f }, { -0.1374f, 0.7625f,  0.3749f }, { -0.1517f, 0.9032f, 0.2486f }, { -0.1437f, 1.0056f,  0.1381f },
     { -0.1080f, 1.0581f,  0.0499f},
