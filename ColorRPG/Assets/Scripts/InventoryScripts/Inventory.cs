@@ -13,6 +13,8 @@ public class Inventory : MonoBehaviour
     public int space = 12;
 
     public Item healthPotionRef;
+    public Item shieldRef;
+    public Item weaponRef;
     public InventoryUI inventoryUI;
 
     public int numOfCurrency = 0;
@@ -40,6 +42,21 @@ public class Inventory : MonoBehaviour
         {
             numOfCurrency += 1;
             inventoryUI.UpdateUI();
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            Add(shieldRef);
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            Add(weaponRef);
+        }
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            EquipmentManager.instance.UnequipAll();
         }
     }
 

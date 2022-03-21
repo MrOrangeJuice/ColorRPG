@@ -13,7 +13,7 @@ public class InventoryUI : MonoBehaviour
     private InventorySlot[] slots;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         inventory = Inventory.instance;
         inventory.onItemChangedCallback += UpdateUI;

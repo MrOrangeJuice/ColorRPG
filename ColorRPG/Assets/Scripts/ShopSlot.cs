@@ -10,29 +10,39 @@ public class ShopSlot : MonoBehaviour
     public Image icon;
     public Text amountText;
 
-    public int costOfItem = 0;
-
     public void Start()
     {
         if (item != null)
         {
             icon.enabled = true;
             amountText.enabled = true;
-            amountText.text = costOfItem.ToString();
+            amountText.text = item.costInShop.ToString();
             icon.sprite = item.icon;
         }
     }
 
     public void BuyItem()
     {
-        if (Inventory.instance.numOfCurrency >= costOfItem && item != null)
+        if (item == null)
         {
-            Inventory.instance.numOfCurrency -= costOfItem;
-            Inventory.instance.Add(item);
+            return;
+        }
+
+        if (Inventory.instance.numOfCurrency >= item.costInShop)
+        {
+            UIManager.instance.itemToUse = item;
+            UIManager.instance.SpawnBuyPrompt();
         }
         else
         {
-            Debug.Log("Not enough currency");
+            UIManager.instance.notEnoughCurrencyPromptRef.SetActive(true);
+
+            //Prevent selling while attempting to buy
+            if (UIManager.instance.sellItemPromptRef.activeSelf)
+            {
+                UIManager.instance.itemToUse = null;
+                UIManager.instance.sellItemPromptRef.SetActive(false);
+            }
         }
     }
 }
