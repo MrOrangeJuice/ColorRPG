@@ -3,27 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum EquipmentSlot
-{
-    Head, 
-    Chest, 
-    Legs, 
+{ 
     Weapon, 
-    Shield, 
-    Feet
+    Shield
 }
 
 [CreateAssetMenu(fileName = "New Equipment", menuName = "Inventory/Equipment")]
 public class Equipment : Item
 {
-    public EquipmentSlot equipmentSlot;
+    //public EquipmentSlot equipmentSlot;
 
     //Not Sure If We Need These
     public int armorModifier;
     public int damageModifier;
 
+    //Color
+    public Color colorToAdd;
+    public float colorWeight;
+
     public override void Use(string colorToUseOn)
     {
-        EquipmentManager.instance.Equip(this, colorToUseOn);
+        int index = -1;
+        switch (colorToUseOn)
+        {
+            case "red":
+                index = 0;
+                break;
+            case "yellow":
+                index = 1;
+                break;
+            case "blue":
+                index = 2;
+                break;
+            default:
+                break;
+        }
+
+        EquipmentManager.instance.Equip(this, index);
 
         base.Use(colorToUseOn);
     }

@@ -6,7 +6,7 @@ public class EquipmentManager : MonoBehaviour
 {
     public static EquipmentManager instance;
 
-    public Equipment[] curentEquipment; //For now, will eventually make a dictionary to track each players inventory-
+    public Equipment[] currentEquipment; //For now, will eventually make a dictionary to track each players inventory-
 
     private Inventory inventory;
 
@@ -28,19 +28,20 @@ public class EquipmentManager : MonoBehaviour
     {
         inventory = Inventory.instance;
 
-        int numOfSlots = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
-        curentEquipment = new Equipment[numOfSlots];
+        //int numOfSlots = System.Enum.GetNames(typeof(EquipmentSlot)).Length; --- Will use if we make multiple slots and then make a dictionary for color
+        int numOfSlots = 3;
+        currentEquipment = new Equipment[numOfSlots];
     }
 
-    public void Equip(Equipment newItem, string colorToUseOn)
+    public void Equip(Equipment newItem, int colorIndex)
     {
-        int slotIndex = (int)newItem.equipmentSlot;
+        //int slotIndex = (int)newItem.equipmentSlot;
 
         Equipment oldItem = null;
 
-        if (curentEquipment[slotIndex] != null)
+        if (currentEquipment[colorIndex] != null)
         {
-            oldItem = curentEquipment[slotIndex];
+            oldItem = currentEquipment[colorIndex];
             inventory.Add(oldItem);
         }
 
@@ -49,30 +50,56 @@ public class EquipmentManager : MonoBehaviour
             onEquipmentChanged.Invoke(newItem, oldItem);
         }
 
-        curentEquipment[slotIndex] = newItem;
+        currentEquipment[colorIndex] = newItem;
+
+        UpdateEquipmentUI(colorIndex);
     }
 
-    public void Unequip(int slotIndex)
+    public void Unequip(int colorIndex)
     {
-        if (curentEquipment[slotIndex] != null)
+        if (currentEquipment[colorIndex] != null)
         {
-            inventory.Add(curentEquipment[slotIndex]);
+            inventory.Add(currentEquipment[colorIndex]);
 
             if (onEquipmentChanged != null)
             {
-                onEquipmentChanged.Invoke(null, curentEquipment[slotIndex]);
+                onEquipmentChanged.Invoke(null, currentEquipment[colorIndex]);
             }
 
-            curentEquipment[slotIndex] = null;
+            currentEquipment[colorIndex] = null;
+
+            UpdateEquipmentUI(colorIndex);
         }
 
     }
 
     public void UnequipAll()
     {
-        for (int i = 0; i < curentEquipment.Length; i++)
+        for (int i = 0; i < currentEquipment.Length; i++)
         {
             Unequip(i);
+        }
+    }
+
+    public void UpdateEquipmentUI(int colorIndex)
+    {
+        if (UIManager.instance.equipmentMenuRef.activeSelf)
+        {
+            if (colorIndex == UIManager.instance.currentColorIndex)
+            {
+                if (currentEquipment[colorIndex] != null)
+                {
+                    UIManager.instance.equipmentSlot.AddItem(currentEquipment[colorIndex]);
+
+                    UIManager.instance.equipmentCharacter.color = ColorMixer.MixColor(UIManager.instance.characterBaseColors[colorIndex], currentEquipment[colorIndex].colorToAdd,
+                        1 - currentEquipment[colorIndex].colorWeight, currentEquipment[colorIndex].colorWeight);
+                }
+                else
+                {
+                    UIManager.instance.equipmentSlot.ClearSlot();
+                    UIManager.instance.equipmentCharacter.color = UIManager.instance.characterBaseColors[colorIndex];
+                }
+            }
         }
     }
 }
