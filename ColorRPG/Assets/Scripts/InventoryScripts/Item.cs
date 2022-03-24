@@ -9,6 +9,7 @@ public class Item : ScriptableObject
     public Sprite icon = null;
     public int amountSoldFor = 1;
     public int costInShop = 5;
+    public string description = "";
 
     /// <summary>
     /// Item's effect on use

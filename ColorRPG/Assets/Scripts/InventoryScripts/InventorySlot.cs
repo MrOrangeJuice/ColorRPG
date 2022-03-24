@@ -10,7 +10,7 @@ public class InventorySlot : MonoBehaviour
     public Image icon;
     public Text amountText;
 
-    public int numOfItem = 0; 
+    public int numOfItem = 0;
 
     /// <summary>
     /// Add a item to the slot
@@ -22,7 +22,11 @@ public class InventorySlot : MonoBehaviour
 
         icon.sprite = item.icon;
         icon.enabled = true;
-        amountText.enabled = true;
+
+        if (amountText != null)
+        {
+            amountText.enabled = true;
+        }
     }
 
     /// <summary>
@@ -34,7 +38,11 @@ public class InventorySlot : MonoBehaviour
 
         icon.sprite = null;
         icon.enabled = false;
-        amountText.enabled = false;
+
+        if (amountText != null)
+        {
+            amountText.enabled = false;
+        }
     }
 
     /// <summary>
@@ -53,9 +61,21 @@ public class InventorySlot : MonoBehaviour
             }
             else
             {
-                UIManager.instance.characterItemSelectRef.SetActive(true);            
+                UIManager.instance.characterItemSelectRef.SetActive(true);
+                UIManager.instance.itemDescriptionRef.SetActive(false);
             }
 
         }
     }
+
+    public void ShowDescription()
+    {
+        if (item == null)
+        {
+            return;
+        }
+
+        UIManager.instance.ToggleItemDescription(item.description);
+    }
+
 }

@@ -272,11 +272,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &692703400 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2505527593205418087, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
-  m_PrefabInstance: {fileID: 216495934332156658}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &216495934332156658
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -288,10 +283,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 216495934811835928, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
-      propertyPath: restResponseRef
-      value: 
-      objectReference: {fileID: 692703400}
     - target: {fileID: 216495934811835930, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -927,10 +918,6 @@ PrefabInstance:
     - target: {fileID: 6074193056320830454, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6247876369745298386, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6399699508675877760, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
       propertyPath: m_AnchorMax.y

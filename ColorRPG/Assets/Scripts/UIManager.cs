@@ -22,6 +22,10 @@ public class UIManager : MonoBehaviour
     public GameObject restPromptRef;
     public GameObject restResponseRef;
     public GameObject townMenuRef;
+    public GameObject equipmentMenuRef;
+    public Image equipmentCharacter;
+    public InventorySlot equipmentSlot;
+    public GameObject itemDescriptionRef;
     #endregion
 
     //Other Variables
@@ -29,6 +33,9 @@ public class UIManager : MonoBehaviour
     public bool paused;
     public bool townScene = true;
     public int RestCost = 10;
+    [HideInInspector] public int currentColorIndex = 0;
+
+    public Color[] characterBaseColors;
 
 
     private void Awake()
@@ -170,6 +177,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void CloseAllMenus()
     {
+        itemDescriptionRef.SetActive(false);
         characterItemSelectRef.SetActive(false);
         sellItemPromptRef.SetActive(false);
         buyItemPromptRef.SetActive(false);
@@ -179,11 +187,36 @@ public class UIManager : MonoBehaviour
         restResponseRef.SetActive(false);
         shopUIRef.SetActive(false);
         inventoryUIRef.SetActive(false);
+        equipmentMenuRef.SetActive(false);
         pauseMenuRef.SetActive(false);
         optionsMenuRef.SetActive(false);
         townMenuRef.SetActive(false);
 
         paused = false;
+    }
+
+    /// <summary>
+    /// Toggles the item description box and sets the text
+    /// </summary>
+    /// <param name="description">The item's description</param>
+    public void ToggleItemDescription(string description)
+    {
+        if (characterItemSelectRef.activeSelf)
+        {
+            itemDescriptionRef.SetActive(false);
+            return;
+        }
+
+        if (itemDescriptionRef.activeSelf)
+        {
+            itemDescriptionRef.GetComponentInChildren<Text>().text = "";
+            itemDescriptionRef.SetActive(false);
+        }
+        else
+        {
+            itemDescriptionRef.GetComponentInChildren<Text>().text = description;
+            itemDescriptionRef.SetActive(true);
+        }
     }
 
 
@@ -327,6 +360,7 @@ public class UIManager : MonoBehaviour
     public void Btn_InventoryToggle()
     {
         inventoryUIRef.SetActive(!inventoryUIRef.activeSelf);
+        equipmentMenuRef.SetActive(!equipmentMenuRef.activeSelf);
 
         //If Inventory and shop are closed, spawn town menu
         if (!inventoryUIRef.activeSelf && !shopUIRef.activeSelf)
@@ -399,6 +433,37 @@ public class UIManager : MonoBehaviour
             townMenuRef.SetActive(true);
         }
 
+    }
+
+    /// <summary>
+    /// Switches the active character in the equipment menu
+    /// </summary>
+    /// <param name="index"></param>
+    public void Btn_SwitchEquipmentCharacter(int index)
+    {
+        currentColorIndex = index;
+
+        if (EquipmentManager.instance.currentEquipment[index] != null)
+        {
+            Equipment currentEquipment = EquipmentManager.instance.currentEquipment[index];
+
+            equipmentSlot.AddItem(EquipmentManager.instance.currentEquipment[index]);
+            equipmentCharacter.color = ColorMixer.MixColor(characterBaseColors[index], currentEquipment.colorToAdd, 1 - currentEquipment.colorWeight, currentEquipment.colorWeight);
+        }
+        else
+        {
+            equipmentSlot.ClearSlot();
+            equipmentCharacter.color = characterBaseColors[index];
+        }
+
+    }
+
+    /// <summary>
+    /// Unequips the item clicked
+    /// </summary>
+    public void Btn_Unequip()
+    {
+        EquipmentManager.instance.Unequip(currentColorIndex);
     }
     #endregion
 
