@@ -36,6 +36,7 @@ public class UIManager : MonoBehaviour
     [HideInInspector] public int currentColorIndex = 0;
 
     public Color[] characterBaseColors;
+    public Sprite[] characterSprites;
 
 
     private void Awake()
@@ -442,6 +443,7 @@ public class UIManager : MonoBehaviour
     public void Btn_SwitchEquipmentCharacter(int index)
     {
         currentColorIndex = index;
+        equipmentCharacter.sprite = characterSprites[index];
 
         if (EquipmentManager.instance.currentEquipment[index] != null)
         {
