@@ -4171,6 +4171,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6403190469958550708, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: CombatScene
+      objectReference: {fileID: 0}
     - target: {fileID: 6796752571887498361, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4242,6 +4246,10 @@ PrefabInstance:
     - target: {fileID: 7520136875135172792, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559302267395765636, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: CombatScene
       objectReference: {fileID: 0}
     - target: {fileID: 7912676874358719048, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
       propertyPath: m_AnchorMax.y
