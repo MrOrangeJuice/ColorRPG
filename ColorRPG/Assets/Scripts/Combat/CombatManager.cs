@@ -160,7 +160,7 @@ public class CombatManager : MonoBehaviour
         turnOrder.Sort((p, q) =>  q.speed.CompareTo(p.speed));
     }
 
-    public void Start()
+    public void Awake()
     {
         turn = 0;
         turnOrder = new List<Combat>();
@@ -174,10 +174,13 @@ public class CombatManager : MonoBehaviour
         {
             enemies.Add(child.GetComponent<Combat>());
         }
-        foreach(Transform child in transform.Find("Characters"))
+        for (int i = 0; i < transform.Find("Characters").childCount; i++)
         {
-            characters.Add(child.GetComponent<Combat>());
-            uiManager.AddUICard(child.GetComponent<Combat>());
+            
+            Combat c = transform.Find("Characters").GetChild(i).GetComponent<Combat>();
+            c.color = EquipmentManager.instance.currentColors[i];
+            characters.Add(c);
+            uiManager.AddUICard(c);
         }
         SetAttackOrder();
         BeginTurn();
