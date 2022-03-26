@@ -6,7 +6,8 @@ public class EquipmentManager : MonoBehaviour
 {
     public static EquipmentManager instance;
 
-    public Equipment[] currentEquipment; //For now, will eventually make a dictionary to track each players inventory-
+    public Equipment[] currentEquipment;
+    public Color[] currentColors;
 
     private Inventory inventory;
 
@@ -26,6 +27,8 @@ public class EquipmentManager : MonoBehaviour
 
     public void Start()
     {
+        currentColors = UIManager.instance.characterBaseColors;
+
         inventory = Inventory.instance;
 
         //int numOfSlots = System.Enum.GetNames(typeof(EquipmentSlot)).Length; --- Will use if we make multiple slots and then make a dictionary for color
@@ -91,13 +94,16 @@ public class EquipmentManager : MonoBehaviour
                 {
                     UIManager.instance.equipmentSlot.AddItem(currentEquipment[colorIndex]);
 
-                    UIManager.instance.equipmentCharacter.color = ColorMixer.MixColor(UIManager.instance.characterBaseColors[colorIndex], currentEquipment[colorIndex].colorToAdd,
+                     currentColors[colorIndex] = ColorMixer.MixColor(UIManager.instance.characterBaseColors[colorIndex], currentEquipment[colorIndex].colorToAdd,
                         1 - currentEquipment[colorIndex].colorWeight, currentEquipment[colorIndex].colorWeight);
+
+                    UIManager.instance.equipmentCharacter.color = currentColors[colorIndex];
                 }
                 else
                 {
                     UIManager.instance.equipmentSlot.ClearSlot();
-                    UIManager.instance.equipmentCharacter.color = UIManager.instance.characterBaseColors[colorIndex];
+                    currentColors[colorIndex] = UIManager.instance.characterBaseColors[colorIndex];
+                    UIManager.instance.equipmentCharacter.color = currentColors[colorIndex];
                 }
             }
         }
