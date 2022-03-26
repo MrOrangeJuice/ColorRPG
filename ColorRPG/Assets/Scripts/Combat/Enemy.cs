@@ -20,12 +20,13 @@ public class Enemy : MonoBehaviour
 
     public IEnumerator TakeTurn()
     {
+        yield return new WaitForSeconds(.4f);
         Combat target = PickTarget();
         //Draws a line to the attack target. Little janky, but don't worry about it
         manager.BeginAttackSelection(transform);
         manager.CurrentLine.Deactivate(target.transform.position);
        
         yield return new WaitForSeconds(.5f);
-        manager.Attack(combat, target);
+        manager.NoWaitAttack(combat, target);
     }
 }
