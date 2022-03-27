@@ -14,6 +14,8 @@ public class EquipmentManager : MonoBehaviour
     public delegate void OnEquipmentChanged(Equipment newItem, Equipment oldItem);
     public OnEquipmentChanged onEquipmentChanged;
 
+    private Player playerRef;
+
     private void Awake()
     {
         if (instance != null)
@@ -23,11 +25,18 @@ public class EquipmentManager : MonoBehaviour
         }
 
         instance = this;
+
+        playerRef = FindObjectOfType<Player>();
     }
 
     public void Start()
     {
-        currentColors = UIManager.instance.characterBaseColors;
+        currentColors = new Color[3];
+
+        for (int i = 0; i < currentColors.Length; i++)
+        {
+            currentColors[i] = UIManager.instance.CharacterBaseColors[i];
+        }
 
         inventory = Inventory.instance;
 
@@ -72,8 +81,9 @@ public class EquipmentManager : MonoBehaviour
             currentEquipment[colorIndex] = null;
 
             UpdateEquipmentUI(colorIndex);
-        }
 
+            UIManager.instance.itemDescriptionRef.SetActive(false);
+        }
     }
 
     public void UnequipAll()
@@ -94,7 +104,9 @@ public class EquipmentManager : MonoBehaviour
                 {
                     UIManager.instance.equipmentSlot.AddItem(currentEquipment[colorIndex]);
 
-                     currentColors[colorIndex] = ColorMixer.MixColor(UIManager.instance.characterBaseColors[colorIndex], currentEquipment[colorIndex].colorToAdd,
+                    Color temp = UIManager.instance.CharacterBaseColors[colorIndex];
+
+                     currentColors[colorIndex] = ColorMixer.MixColor(temp, currentEquipment[colorIndex].colorToAdd,
                         1 - currentEquipment[colorIndex].colorWeight, currentEquipment[colorIndex].colorWeight);
 
                     UIManager.instance.equipmentCharacter.color = currentColors[colorIndex];
@@ -102,10 +114,12 @@ public class EquipmentManager : MonoBehaviour
                 else
                 {
                     UIManager.instance.equipmentSlot.ClearSlot();
-                    currentColors[colorIndex] = UIManager.instance.characterBaseColors[colorIndex];
+                    currentColors[colorIndex] = UIManager.instance.CharacterBaseColors[colorIndex];
                     UIManager.instance.equipmentCharacter.color = currentColors[colorIndex];
                 }
             }
         }
+
+        playerRef.sr.color = currentColors[0];
     }
 }

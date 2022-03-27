@@ -29,14 +29,19 @@ public class UIManager : MonoBehaviour
     #endregion
 
     //Other Variables
-    [HideInInspector]public Item itemToUse = null;
-    public bool paused;
+    [HideInInspector] public Item itemToUse = null;
+    public bool paused = false;
     public bool townScene = true;
     public int RestCost = 10;
     [HideInInspector] public int currentColorIndex = 0;
 
-    public Color[] characterBaseColors;
+    private Player player;
+
+    //public Color[] characterBaseColors;
+    [SerializeField] private Color[] characterBaseColors;
     public Sprite[] characterSprites;
+
+    public Color[] CharacterBaseColors { get { return characterBaseColors; } }
 
 
     private void Awake()
@@ -53,6 +58,7 @@ public class UIManager : MonoBehaviour
         }
 
         instance = this;
+
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -62,8 +68,10 @@ public class UIManager : MonoBehaviour
 
         if (townScene)
         {
-            townMenuRef.SetActive(true);
+            //townMenuRef.SetActive(true);
         }
+
+        player = FindObjectOfType<Player>();
     }
 
     public void Update()
@@ -82,10 +90,10 @@ public class UIManager : MonoBehaviour
             Btn_InventoryToggle();
         }
 
-        if (Input.GetKeyDown(KeyCode.S) && !paused && townScene)
-        {
-            Btn_ShopToggle();
-        }
+        //if (Input.GetKeyDown(KeyCode.S) && !paused && townScene)
+        //{
+        //    Btn_ShopToggle();
+        //}
 
         if (Input.GetKeyDown(KeyCode.Escape) && optionsMenuRef.activeSelf && townScene)
         {
@@ -314,14 +322,26 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void Btn_TownToggle()
     {
-        townMenuRef.SetActive(!townMenuRef.activeSelf);
+        //townMenuRef.SetActive(!townMenuRef.activeSelf);
 
         //If Town Menu is active, close other menus
-        if (townMenuRef.activeSelf)
+        //if (townMenuRef.activeSelf)
+        //{
+        //    inventoryUIRef.SetActive(false);
+        //    equipmentMenuRef.SetActive(false);
+        //    shopUIRef.SetActive(false);
+        //}
+
+        if (shopUIRef.activeSelf)
         {
-            inventoryUIRef.SetActive(false);
-            shopUIRef.SetActive(false);
+            FindObjectOfType<Shop>().canInteract = true;
         }
+
+        player.canMove = true;
+
+        inventoryUIRef.SetActive(false);
+        equipmentMenuRef.SetActive(false);
+        shopUIRef.SetActive(false);
     }
 
     /// <summary>
@@ -330,7 +350,10 @@ public class UIManager : MonoBehaviour
     public void Btn_AdventureSelection()
     {
         adventurePromptRef.SetActive(!adventurePromptRef.activeSelf);
-        townMenuRef.SetActive(!adventurePromptRef.activeSelf);
+
+        player.canMove = true;
+        FindObjectOfType<MapChange>().canInteract = true;
+        //townMenuRef.SetActive(!adventurePromptRef.activeSelf);
     }
 
     /// <summary>
@@ -361,18 +384,18 @@ public class UIManager : MonoBehaviour
     public void Btn_InventoryToggle()
     {
         inventoryUIRef.SetActive(!inventoryUIRef.activeSelf);
-        equipmentMenuRef.SetActive(!equipmentMenuRef.activeSelf);
+        equipmentMenuRef.SetActive(inventoryUIRef.activeSelf);
 
         //If Inventory and shop are closed, spawn town menu
-        if (!inventoryUIRef.activeSelf && !shopUIRef.activeSelf)
-        {
-            townMenuRef.SetActive(true);
-        }
-        //Otherwise close the town menu
-        else
-        {
-            townMenuRef.SetActive(false);
-        }
+        //if (!inventoryUIRef.activeSelf && !shopUIRef.activeSelf)
+        //{
+        //    townMenuRef.SetActive(true);
+        //}
+        ////Otherwise close the town menu
+        //else
+        //{
+        //    townMenuRef.SetActive(false);
+        //}
     }
 
     /// <summary>
@@ -386,6 +409,7 @@ public class UIManager : MonoBehaviour
         //If Shop is closed, spawn town menu
         if (!shopUIRef.activeSelf)
         {
+            equipmentMenuRef.SetActive(false);
             townMenuRef.SetActive(true);
         }
         //Otherwise close the town menu
@@ -401,7 +425,10 @@ public class UIManager : MonoBehaviour
     public void Btn_RestPrompt()
     {
         restPromptRef.SetActive(!restPromptRef.activeSelf);
-        townMenuRef.SetActive(!restPromptRef.activeSelf);
+
+        player.canMove = true;
+        FindObjectOfType<Inn>().canInteract = true;
+        //townMenuRef.SetActive(!restPromptRef.activeSelf);
     }
 
     /// <summary>
@@ -422,7 +449,7 @@ public class UIManager : MonoBehaviour
 
                 restResponseRef.GetComponentInChildren<Text>().text = "Your party has fully rested!";
 
-                //Heal Players
+                //Heal PlayersCam
             }
             else
             {
@@ -431,7 +458,8 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            townMenuRef.SetActive(true);
+            player.canMove = true;
+            FindObjectOfType<Inn>().canInteract = true;
         }
 
     }
@@ -450,12 +478,12 @@ public class UIManager : MonoBehaviour
             Equipment currentEquipment = EquipmentManager.instance.currentEquipment[index];
 
             equipmentSlot.AddItem(EquipmentManager.instance.currentEquipment[index]);
-            equipmentCharacter.color = ColorMixer.MixColor(characterBaseColors[index], currentEquipment.colorToAdd, 1 - currentEquipment.colorWeight, currentEquipment.colorWeight);
+            equipmentCharacter.color = ColorMixer.MixColor(CharacterBaseColors[index], currentEquipment.colorToAdd, 1 - currentEquipment.colorWeight, currentEquipment.colorWeight);
         }
         else
         {
             equipmentSlot.ClearSlot();
-            equipmentCharacter.color = characterBaseColors[index];
+            equipmentCharacter.color = CharacterBaseColors[index];
         }
 
     }
