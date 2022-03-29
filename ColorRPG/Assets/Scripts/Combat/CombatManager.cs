@@ -40,8 +40,9 @@ public class CombatManager : MonoBehaviour
     {
         float sqrDist = Mathf.Pow(color.r - other.r, 2) + Mathf.Pow(color.g - other.g, 2) + Mathf.Pow(color.b - other.b, 2);
         sqrDist /= 3;
-        Debug.Log(1 - sqrDist);
-        return Mathf.Clamp(1 - sqrDist, multiplierMin, 1);
+        float value = Mathf.Clamp(1 - 2 * sqrDist, multiplierMin, 1);
+        Debug.Log(value);
+        return value;
     }
     
 
@@ -178,7 +179,11 @@ public class CombatManager : MonoBehaviour
         {
             
             Combat c = transform.Find("Characters").GetChild(i).GetComponent<Combat>();
-            c.color = EquipmentManager.instance.currentColors[i];
+            if (EquipmentManager.instance != null)
+            {
+                c.color = EquipmentManager.instance.currentColors[i];
+            }
+           
             characters.Add(c);
             uiManager.AddUICard(c);
         }

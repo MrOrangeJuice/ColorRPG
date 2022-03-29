@@ -32,7 +32,9 @@ public class ColorPicker : MonoBehaviour
     
     private void OnEnable()
     {
-        SelectedColor = Color.white;    
+        SelectedColor = Color.white;
+        selector.anchorMin = new Vector2(.98f, 0);
+        selector.anchorMax = new Vector2(1, 1);
         if(panelParent == null)
         {
             panelParent = transform.GetChild(0);
@@ -57,10 +59,10 @@ public class ColorPicker : MonoBehaviour
 
         //DOTween.To(() => selector.anchorMin, x => selector.anchorMin = x, new Vector2(0, selector.anchorMin.y), 1);
         pickSequence = DOTween.Sequence();
-        pickSequence.Append(selector.DOAnchorMin(new Vector2(0, selector.anchorMin.y), 1).SetEase(Ease.Unset));
-        pickSequence.Join(selector.DOAnchorMax(new Vector2(.02f, selector.anchorMax.y), 1).SetEase(Ease.Unset)); 
-        pickSequence.Append(selector.DOAnchorMin(new Vector2(.98f, selector.anchorMin.y), 1).SetEase(Ease.Unset));
-        pickSequence.Join(selector.DOAnchorMax(new Vector2(1.0f, selector.anchorMax.y), 1).SetEase(Ease.Unset));
+        pickSequence.Append(selector.DOAnchorMin(new Vector2(0, selector.anchorMin.y), 1).SetEase(Ease.Linear));
+        pickSequence.Join(selector.DOAnchorMax(new Vector2(.02f, selector.anchorMax.y), 1).SetEase(Ease.Linear)); 
+        pickSequence.Append(selector.DOAnchorMin(new Vector2(.98f, selector.anchorMin.y), 1).SetEase(Ease.Linear));
+        pickSequence.Join(selector.DOAnchorMax(new Vector2(1.0f, selector.anchorMax.y), 1).SetEase(Ease.Linear));
         pickSequence.SetLoops(-1);
         pickSequence.Loops();
 
