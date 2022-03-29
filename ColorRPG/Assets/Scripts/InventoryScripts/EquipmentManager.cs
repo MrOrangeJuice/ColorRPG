@@ -14,6 +14,10 @@ public class EquipmentManager : MonoBehaviour
     public delegate void OnEquipmentChanged(Equipment newItem, Equipment oldItem);
     public OnEquipmentChanged onEquipmentChanged;
 
+    public int[] playerHealth = new int[3];
+    public string[] playerNames = new string[] { "red", "yellow", "blue" };
+    public int maxHealth = 25;
+
     private Player playerRef;
 
     private void Awake()
