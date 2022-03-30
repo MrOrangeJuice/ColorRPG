@@ -21,11 +21,12 @@ public class UIManager : MonoBehaviour
     public GameObject adventurePromptRef;
     public GameObject restPromptRef;
     public GameObject restResponseRef;
-    public GameObject townMenuRef;
+    //public GameObject townMenuRef;
     public GameObject equipmentMenuRef;
     public Image equipmentCharacter;
     public InventorySlot equipmentSlot;
     public GameObject itemDescriptionRef;
+    public Text healthText;
     #endregion
 
     //Other Variables
@@ -65,11 +66,6 @@ public class UIManager : MonoBehaviour
     public void Start()
     {
         CloseAllMenus();
-
-        if (townScene)
-        {
-            //townMenuRef.SetActive(true);
-        }
 
         player = FindObjectOfType<Player>();
     }
@@ -199,7 +195,7 @@ public class UIManager : MonoBehaviour
         equipmentMenuRef.SetActive(false);
         pauseMenuRef.SetActive(false);
         optionsMenuRef.SetActive(false);
-        townMenuRef.SetActive(false);
+        //townMenuRef.SetActive(false);
 
         paused = false;
     }
@@ -367,7 +363,7 @@ public class UIManager : MonoBehaviour
         if (sceneName == "DestinyScene")
         {
             townScene = true;
-            townMenuRef.SetActive(true);
+            //townMenuRef.SetActive(true);
         }
         else
         {
@@ -410,12 +406,12 @@ public class UIManager : MonoBehaviour
         if (!shopUIRef.activeSelf)
         {
             equipmentMenuRef.SetActive(false);
-            townMenuRef.SetActive(true);
+            //townMenuRef.SetActive(true);
         }
         //Otherwise close the town menu
         else
         {
-            townMenuRef.SetActive(false);
+            //townMenuRef.SetActive(false);
         }
     }
 
@@ -449,7 +445,8 @@ public class UIManager : MonoBehaviour
 
                 restResponseRef.GetComponentInChildren<Text>().text = "Your party has fully rested!";
 
-                //Heal PlayersCam
+                //Heal Players
+                EquipmentManager.instance.Rest();
             }
             else
             {
@@ -472,6 +469,7 @@ public class UIManager : MonoBehaviour
     {
         currentColorIndex = index;
         equipmentCharacter.sprite = characterSprites[index];
+        healthText.text = "Health: " + EquipmentManager.instance.playerHealth[index];
 
         if (EquipmentManager.instance.currentEquipment[index] != null)
         {

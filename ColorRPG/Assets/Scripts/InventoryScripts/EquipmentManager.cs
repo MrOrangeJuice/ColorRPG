@@ -126,4 +126,12 @@ public class EquipmentManager : MonoBehaviour
 
         playerRef.sr.color = currentColors[0];
     }
+
+    public void Rest()
+    {
+        for (int i = 0; i < playerHealth.Length; i++)
+        {
+            playerHealth[i] = maxHealth;
+        }
+    }
 }
