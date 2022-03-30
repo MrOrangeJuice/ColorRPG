@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class ColorPicker : MonoBehaviour
 {
@@ -16,18 +17,24 @@ public class ColorPicker : MonoBehaviour
 
     private Transform panelParent;
 
+    [SerializeField]
+    private RectTransform selector;
+
     List<Image> panels;
 
-    private Color CurrentColor { get; set; }
-    private Color MixingColor { get; set; }
+    private Sequence pickSequence;
+
+    public Color CurrentColor { get; set; }
+    public Color MixingColor { get; set; }
+    public Color SelectedColor { get; set; }
 
 
-    public Color current;
-    public Color mix;
+    
     private void OnEnable()
     {
-        CurrentColor = current;
-        MixingColor = mix;
+        SelectedColor = Color.white;
+        selector.anchorMin = new Vector2(.98f, 0);
+        selector.anchorMax = new Vector2(1, 1);
         if(panelParent == null)
         {
             panelParent = transform.GetChild(0);
@@ -47,9 +54,38 @@ public class ColorPicker : MonoBehaviour
             int middle = numPanels / 2;
             float step = (maxStrength - minStrength) / middle;
             float strength = i <= middle ? i * step + minStrength : maxStrength - step * (i - middle) ;
-            panels[i].color = ColorMixer.MixColor(CurrentColor, MixingColor, 1 - strength, strength);
+            panels[i].color = ColorMixer.MixColor(CurrentColor, MixingColor, strength, 1-strength);
         }
+
+        //DOTween.To(() => selector.anchorMin, x => selector.anchorMin = x, new Vector2(0, selector.anchorMin.y), 1);
+        pickSequence = DOTween.Sequence();
+        pickSequence.Append(selector.DOAnchorMin(new Vector2(0, selector.anchorMin.y), 1).SetEase(Ease.Linear));
+        pickSequence.Join(selector.DOAnchorMax(new Vector2(.02f, selector.anchorMax.y), 1).SetEase(Ease.Linear)); 
+        pickSequence.Append(selector.DOAnchorMin(new Vector2(.98f, selector.anchorMin.y), 1).SetEase(Ease.Linear));
+        pickSequence.Join(selector.DOAnchorMax(new Vector2(1.0f, selector.anchorMax.y), 1).SetEase(Ease.Linear));
+        pickSequence.SetLoops(-1);
+        pickSequence.Loops();
 
 
     }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space) && pickSequence.IsActive())
+        {
+            StartCoroutine(MakeSelection());    
+        }
+        
+    }
+
+    private IEnumerator MakeSelection()
+    {
+        pickSequence.Kill();
+        float middle = (selector.anchorMax.x - selector.anchorMin.x) / 2.0f + selector.anchorMin.x;
+        float step = 1.0f / numPanels;
+        int index = (int)(middle / step);
+        yield return new WaitForSeconds(.2f);
+        SelectedColor = panels[index].color;
+    }
+
 }

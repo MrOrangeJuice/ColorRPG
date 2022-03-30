@@ -6,12 +6,19 @@ public class EquipmentManager : MonoBehaviour
 {
     public static EquipmentManager instance;
 
-    public Equipment[] currentEquipment; //For now, will eventually make a dictionary to track each players inventory-
+    public Equipment[] currentEquipment;
+    public Color[] currentColors;
 
     private Inventory inventory;
 
     public delegate void OnEquipmentChanged(Equipment newItem, Equipment oldItem);
     public OnEquipmentChanged onEquipmentChanged;
+
+    public int[] playerHealth = new int[3];
+    public string[] playerNames = new string[] { "red", "yellow", "blue" };
+    public int maxHealth = 25;
+
+    private Player playerRef;
 
     private void Awake()
     {
@@ -22,10 +29,19 @@ public class EquipmentManager : MonoBehaviour
         }
 
         instance = this;
+
+        playerRef = FindObjectOfType<Player>();
     }
 
     public void Start()
     {
+        currentColors = new Color[3];
+
+        for (int i = 0; i < currentColors.Length; i++)
+        {
+            currentColors[i] = UIManager.instance.CharacterBaseColors[i];
+        }
+
         inventory = Inventory.instance;
 
         //int numOfSlots = System.Enum.GetNames(typeof(EquipmentSlot)).Length; --- Will use if we make multiple slots and then make a dictionary for color
@@ -69,8 +85,9 @@ public class EquipmentManager : MonoBehaviour
             currentEquipment[colorIndex] = null;
 
             UpdateEquipmentUI(colorIndex);
-        }
 
+            UIManager.instance.itemDescriptionRef.SetActive(false);
+        }
     }
 
     public void UnequipAll()
@@ -91,15 +108,30 @@ public class EquipmentManager : MonoBehaviour
                 {
                     UIManager.instance.equipmentSlot.AddItem(currentEquipment[colorIndex]);
 
-                    UIManager.instance.equipmentCharacter.color = ColorMixer.MixColor(UIManager.instance.characterBaseColors[colorIndex], currentEquipment[colorIndex].colorToAdd,
+                    Color temp = UIManager.instance.CharacterBaseColors[colorIndex];
+
+                     currentColors[colorIndex] = ColorMixer.MixColor(temp, currentEquipment[colorIndex].colorToAdd,
                         1 - currentEquipment[colorIndex].colorWeight, currentEquipment[colorIndex].colorWeight);
+
+                    UIManager.instance.equipmentCharacter.color = currentColors[colorIndex];
                 }
                 else
                 {
                     UIManager.instance.equipmentSlot.ClearSlot();
-                    UIManager.instance.equipmentCharacter.color = UIManager.instance.characterBaseColors[colorIndex];
+                    currentColors[colorIndex] = UIManager.instance.CharacterBaseColors[colorIndex];
+                    UIManager.instance.equipmentCharacter.color = currentColors[colorIndex];
                 }
             }
+        }
+
+        playerRef.sr.color = currentColors[0];
+    }
+
+    public void Rest()
+    {
+        for (int i = 0; i < playerHealth.Length; i++)
+        {
+            playerHealth[i] = maxHealth;
         }
     }
 }

@@ -15,10 +15,25 @@ public class InventoryUI : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        
+    }
+
+    public void Start()
+    {
         inventory = Inventory.instance;
         inventory.onItemChangedCallback += UpdateUI;
 
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
+
+        UpdateUI();
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            UIManager.instance.restPromptRef.SetActive(!UIManager.instance.restPromptRef.activeSelf);
+        }
     }
 
 

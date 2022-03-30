@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 
 
@@ -10,6 +11,10 @@ public class CombatUIManager : MonoBehaviour
     public GameObject uiCardPrefab;
     [SerializeField]
     private CombatManager manager;
+    [SerializeField]
+    private TextMeshProUGUI damageText;
+    
+    public ColorPicker picker;
 
     public void AddUICard(Combat c)
     {
@@ -40,5 +45,27 @@ public class CombatUIManager : MonoBehaviour
     public void UpdateHealth(Combat c)
     {
         uiCards[c].healthText.text = c.health.ToString();  
+    }
+
+    public IEnumerator UpdateDamageText(int damage)
+    {
+        damageText.text = damage + " damage!";
+        yield return new WaitForSeconds(.4f);
+        damageText.text = "";
+    }
+
+    public void EnableColorPicker(Color current, Color mixing)
+    {
+        picker.MixingColor = mixing;
+        picker.CurrentColor = current;
+        picker.gameObject.SetActive(true);
+        gameObject.SetActive(false);
+    }
+
+    public void DisableColorPicker()
+    {
+        picker.SelectedColor = Color.white;
+        picker.gameObject.SetActive(false);
+        gameObject.SetActive(true);
     }
 }

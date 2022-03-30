@@ -17,7 +17,7 @@ public class Inventory : MonoBehaviour
     public Item weaponRef;
     public InventoryUI inventoryUI;
 
-    public int numOfCurrency = 0;
+    public int numOfCurrency = 100;
 
     private void Awake()
     {
@@ -44,12 +44,12 @@ public class Inventory : MonoBehaviour
             inventoryUI.UpdateUI();
         }
 
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             Add(shieldRef);
         }
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             Add(weaponRef);
         }

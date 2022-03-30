@@ -40,29 +40,43 @@ public class CombatManager : MonoBehaviour
     {
         float sqrDist = Mathf.Pow(color.r - other.r, 2) + Mathf.Pow(color.g - other.g, 2) + Mathf.Pow(color.b - other.b, 2);
         sqrDist /= 3;
-        Debug.Log(1 - sqrDist);
-        return Mathf.Clamp(1 - sqrDist, multiplierMin, 1);
+        float value = Mathf.Clamp(1 - 2 * sqrDist, multiplierMin, 1);
+        Debug.Log(value);
+        return value;
     }
     
 
     public void EndAttackSelection(Combat defender)
     {
-        if (!defender.CompareTag("Swatch"))
+        if (SelectedCharacter.CompareTag("Swatch"))
         {
-            Attack(SelectedCharacter, defender);
+            NoWaitAttack(SelectedCharacter, defender);
+        }
+        else if(!defender.CompareTag("Swatch"))
+        {
+            StartCoroutine(Attack(SelectedCharacter, defender));
         }
         else
         {
-            StoreInSwatch(SelectedCharacter, defender);
+            StartCoroutine(StoreInSwatch(SelectedCharacter, defender));
             SelectedCharacter = null;
             Destroy(currentLine.gameObject);
             currentLine = null;
         }
+        
     }
 
-    public void Attack(Combat attacker, Combat defender)
+    public IEnumerator Attack(Combat attacker, Combat defender)
     {
-        defender.health -= (int)(attacker.attack * ComputeMultiplier(attacker.color, defender.color));
+     
+        if(!attacker.CompareTag("Swatch") && !attacker.CompareTag("Enemy"))
+        {
+            uiManager.EnableColorPicker(attacker.color, Color.white);
+        }
+
+        yield return new WaitUntil(() => uiManager.picker.SelectedColor != Color.white);
+        int damage = (int)(attacker.attack * ComputeMultiplier(attacker.color, defender.color));
+        defender.health -= damage;
         if (defender.health <= 0)
         {
             defender.health = 0;
@@ -77,7 +91,7 @@ public class CombatManager : MonoBehaviour
                 enemies.Remove(defender);
             }
         }
-
+        StartCoroutine(uiManager.UpdateDamageText(damage));
         if (!defender.CompareTag("Enemy"))
         {
             uiManager.UpdateHealth(defender);
@@ -88,9 +102,43 @@ public class CombatManager : MonoBehaviour
             attacker.attack = 0;
         }
 
-      
+        uiManager.DisableColorPicker();
         EndTurn();
     }
+
+    public void NoWaitAttack(Combat attacker, Combat defender)
+    {
+        int damage = (int)(attacker.attack * ComputeMultiplier(attacker.color, defender.color));
+        defender.health -= damage;
+        if (defender.health <= 0)
+        {
+            defender.health = 0;
+            defender.Die();
+            turnOrder.Remove(defender);
+            if (!defender.CompareTag("Enemy"))
+            {
+                characters.Remove(defender);
+            }
+            else
+            {
+                enemies.Remove(defender);
+            }
+        }
+        StartCoroutine(uiManager.UpdateDamageText(damage));
+        if (!defender.CompareTag("Enemy"))
+        {
+            uiManager.UpdateHealth(defender);
+        }
+        if (attacker.CompareTag("Swatch"))
+        {
+            attacker.SetColor(Color.white);
+            attacker.attack = 0;
+        }
+
+
+        EndTurn();
+    }
+
 
     public void SetAttackOrder()
     {
@@ -113,7 +161,7 @@ public class CombatManager : MonoBehaviour
         turnOrder.Sort((p, q) =>  q.speed.CompareTo(p.speed));
     }
 
-    public void Start()
+    public void Awake()
     {
         turn = 0;
         turnOrder = new List<Combat>();
@@ -127,10 +175,17 @@ public class CombatManager : MonoBehaviour
         {
             enemies.Add(child.GetComponent<Combat>());
         }
-        foreach(Transform child in transform.Find("Characters"))
+        for (int i = 0; i < transform.Find("Characters").childCount; i++)
         {
-            characters.Add(child.GetComponent<Combat>());
-            uiManager.AddUICard(child.GetComponent<Combat>());
+            
+            Combat c = transform.Find("Characters").GetChild(i).GetComponent<Combat>();
+            if (EquipmentManager.instance != null)
+            {
+                c.color = EquipmentManager.instance.currentColors[i];
+            }
+           
+            characters.Add(c);
+            uiManager.AddUICard(c);
         }
         SetAttackOrder();
         BeginTurn();
@@ -168,7 +223,7 @@ public class CombatManager : MonoBehaviour
         }
         Vector3 offset = currentTurn.CompareTag("Enemy") ? new Vector3(0, .5f, 0) : new Vector3(0, -.5f, 0);
         currentTurn.transform.position += offset;
-
+        SelectedCharacter = null;
         turn++;
         if(turn >= turnOrder.Count )
         {
@@ -178,7 +233,7 @@ public class CombatManager : MonoBehaviour
         {
             BeginTurn();
         }
-
+        
     }
 
     public void StartRound()
@@ -188,20 +243,16 @@ public class CombatManager : MonoBehaviour
         BeginTurn();
     }
 
-    public void StoreInSwatch(Combat attacker, Combat swatch)
+    public IEnumerator StoreInSwatch(Combat attacker, Combat swatch)
     {
-        //Open swatch
-        if (swatch.attack == 0)
-        {
-            swatch.attack = attacker.attack;
-            swatch.SetColor(attacker.color);
-        }
-        else
-        {
-            swatch.attack += attacker.attack;
-            swatch.SetColor(ColorMixer.MixColor(swatch.color, attacker.color, .5f, .5f));
-        }
-        currentLine.Deactivate(swatch.transform.position);
+        uiManager.EnableColorPicker(attacker.color, swatch.color);
+        yield return new WaitUntil(() => uiManager.picker.SelectedColor != Color.white);
+        swatch.attack += attacker.attack;
+        swatch.SetColor(uiManager.picker.SelectedColor);
+        uiManager.DisableColorPicker();
+
     }
+
+ 
 
 }
