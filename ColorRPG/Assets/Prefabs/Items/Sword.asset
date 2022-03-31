@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Sword
   icon: {fileID: 21300000, guid: 81d9eed96a84d3547bf35d8d34707eb0, type: 3}
   amountSoldFor: 25
-  costInShop: 5
+  costInShop: 20
   description: Mixs a medium amount of blue with the character's base color.
   armorModifier: 0
   damageModifier: 3
