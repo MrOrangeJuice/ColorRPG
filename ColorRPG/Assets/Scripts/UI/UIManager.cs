@@ -493,6 +493,25 @@ public class UIManager : MonoBehaviour
     {
         EquipmentManager.instance.Unequip(currentColorIndex);
     }
+
+    /// <summary>
+    /// Set theme of the adventure
+    /// </summary>
+    /// <param name="c"></param>
+    public void Btn_SetColorThemeBlue()
+    {
+        EquipmentManager.instance.currentTheme = Color.blue; 
+    }
+
+    /// <summary>
+    /// Set theme of the adventure
+    /// </summary>
+    /// <param name="c"></param>
+    public void Btn_SetColorThemeGreen()
+    {
+        EquipmentManager.instance.currentTheme = Color.green;
+    }
+
     #endregion
 
 }
