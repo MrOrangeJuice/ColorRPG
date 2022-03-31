@@ -4437,6 +4437,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7699228834956899416, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_Text
+      value: 'Health: 30'
+      objectReference: {fileID: 0}
     - target: {fileID: 7912676874358719048, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4487,19 +4491,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8734570503632477716, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
       propertyPath: maxHealth
-      value: 20
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8734570503632477716, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: playerNames.Array.data[0]
+      value: Redmond
+      objectReference: {fileID: 0}
+    - target: {fileID: 8734570503632477716, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: playerNames.Array.data[1]
+      value: Daffodil
+      objectReference: {fileID: 0}
+    - target: {fileID: 8734570503632477716, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: playerNames.Array.data[2]
+      value: BigBlue
       objectReference: {fileID: 0}
     - target: {fileID: 8734570503632477716, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
       propertyPath: playerHealth.Array.data[0]
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8734570503632477716, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
       propertyPath: playerHealth.Array.data[1]
-      value: 20
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 8734570503632477716, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
       propertyPath: playerHealth.Array.data[2]
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8772970513447546919, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
       propertyPath: m_AnchorMax.y

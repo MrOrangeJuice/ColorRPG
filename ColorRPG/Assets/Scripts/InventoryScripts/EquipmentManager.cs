@@ -30,7 +30,6 @@ public class EquipmentManager : MonoBehaviour
         }
 
         instance = this;
-
         
     }
 

@@ -185,7 +185,13 @@ public class UIManager : MonoBehaviour
         restResponseRef.SetActive(false);
         shopUIRef.SetActive(false);
         inventoryUIRef.SetActive(false);
-        equipmentMenuRef.SetActive(false);
+        //equipmentMenuRef.SetActive(false);
+
+        for (int i = 0; i < equipmentMenuRef.transform.childCount; i++)
+        {
+            equipmentMenuRef.transform.GetChild(i).gameObject.SetActive(false);
+        }
+
         pauseMenuRef.SetActive(false);
         optionsMenuRef.SetActive(false);
         //townMenuRef.SetActive(false);
@@ -329,7 +335,10 @@ public class UIManager : MonoBehaviour
         player.canMove = true;
 
         inventoryUIRef.SetActive(false);
-        equipmentMenuRef.SetActive(false);
+        for (int i = 0; i < equipmentMenuRef.transform.childCount; i++)
+        {
+            equipmentMenuRef.transform.GetChild(i).gameObject.SetActive(false);
+        }
         shopUIRef.SetActive(false);
     }
 
@@ -373,7 +382,12 @@ public class UIManager : MonoBehaviour
     public void Btn_InventoryToggle()
     {
         inventoryUIRef.SetActive(!inventoryUIRef.activeSelf);
-        equipmentMenuRef.SetActive(inventoryUIRef.activeSelf);
+        //equipmentMenuRef.SetActive(inventoryUIRef.activeSelf);
+
+        for (int i = 0; i < equipmentMenuRef.transform.childCount; i++)
+        {
+            equipmentMenuRef.transform.GetChild(i).gameObject.SetActive(inventoryUIRef.activeSelf);
+        }
 
         //If Inventory and shop are closed, spawn town menu
         //if (!inventoryUIRef.activeSelf && !shopUIRef.activeSelf)
@@ -398,7 +412,10 @@ public class UIManager : MonoBehaviour
         //If Shop is closed, spawn town menu
         if (!shopUIRef.activeSelf)
         {
-            equipmentMenuRef.SetActive(false);
+            for (int i = 0; i < equipmentMenuRef.transform.childCount; i++)
+            {
+                equipmentMenuRef.transform.GetChild(i).gameObject.SetActive(false);
+            }
             //townMenuRef.SetActive(true);
         }
         //Otherwise close the town menu
