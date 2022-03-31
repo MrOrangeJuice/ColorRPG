@@ -16,8 +16,12 @@ public class CombatUIManager : MonoBehaviour
     
     public ColorPicker picker;
 
+    public GameObject caveBackground;
+    public GameObject forestBackground;
+    
     public void AddUICard(Combat c)
     {
+        
         CombatUI ui = Instantiate(uiCardPrefab, transform).GetComponent<CombatUI>();
         uiCards.Add(c, ui);
         ui.nameText.text = c.name;
@@ -67,5 +71,14 @@ public class CombatUIManager : MonoBehaviour
         picker.SelectedColor = Color.white;
         picker.gameObject.SetActive(false);
         gameObject.SetActive(true);
+    }
+
+    public void Start()
+    {
+        if (EquipmentManager.instance != null)
+        {
+            GameObject background = EquipmentManager.instance.currentTheme == Color.green ? forestBackground : caveBackground;
+            background.gameObject.SetActive(true);  
+        }
     }
 }
