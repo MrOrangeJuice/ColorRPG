@@ -10,17 +10,17 @@ public class Player : MonoBehaviour
     public Vector3 cameraOffset = new Vector3(0, 0, -10);
     private Camera mainCamera;
 
-    // Start is called before the first frame update
-    void Awake()
+    private void Start()
     {
         canMove = true;
         sr = GetComponent<SpriteRenderer>();
         mainCamera = FindObjectOfType<Camera>();
+        sr.color = UIManager.instance.CharacterBaseColors[0];
     }
 
-    private void Start()
+    private void Update()
     {
-        sr.color = UIManager.instance.CharacterBaseColors[0];
+
     }
 
     void FixedUpdate()

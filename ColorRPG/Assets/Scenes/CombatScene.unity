@@ -169,7 +169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9204943159268075252, guid: 8199416ab26fd7944aa77510eac27c08, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9204943159268075252, guid: 8199416ab26fd7944aa77510eac27c08, type: 3}
       propertyPath: m_LocalPosition.x
@@ -562,7 +562,7 @@ Transform:
   m_Children:
   - {fileID: 522055168}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &522055167
 GameObject:
@@ -731,7 +731,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &627392711 stripped
 Transform:
@@ -897,7 +897,7 @@ Transform:
   - {fileID: 1210490536}
   - {fileID: 924744573}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &746374061
 MonoBehaviour:
@@ -1235,7 +1235,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 513285721971770510, guid: 7528b2e7d0fe5074bbcbbab2d7180f8e, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 513285721971770510, guid: 7528b2e7d0fe5074bbcbbab2d7180f8e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1380,7 +1380,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1381316607510342447, guid: 5061f6685fac7974281630960aa38cbd, type: 3}
       propertyPath: attack
-      value: 50
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 1381316607510342447, guid: 5061f6685fac7974281630960aa38cbd, type: 3}
       propertyPath: health
@@ -2056,7 +2056,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1381316607510342447, guid: 5061f6685fac7974281630960aa38cbd, type: 3}
       propertyPath: attack
-      value: 50
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1381316607510342447, guid: 5061f6685fac7974281630960aa38cbd, type: 3}
       propertyPath: health
@@ -2375,7 +2375,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1381316607510342447, guid: 5061f6685fac7974281630960aa38cbd, type: 3}
       propertyPath: attack
-      value: 50
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5061f6685fac7974281630960aa38cbd, type: 3}

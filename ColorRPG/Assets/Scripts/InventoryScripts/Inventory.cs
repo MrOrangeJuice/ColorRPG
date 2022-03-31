@@ -30,36 +30,6 @@ public class Inventory : MonoBehaviour
         instance = this;
     }
 
-    public void Update()
-    {
-        //For Testing
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Add(healthPotionRef);
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            numOfCurrency += 1;
-            inventoryUI.UpdateUI();
-        }
-
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            Add(shieldRef);
-        }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            Add(weaponRef);
-        }
-
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            EquipmentManager.instance.UnequipAll();
-        }
-    }
-
     /// <summary>
     /// Adds an item to the inventory if there is room. If one of this type already exists, simply update the counter.
     /// </summary>

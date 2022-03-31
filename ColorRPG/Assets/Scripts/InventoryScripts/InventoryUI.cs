@@ -28,14 +28,6 @@ public class InventoryUI : MonoBehaviour
         UpdateUI();
     }
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            UIManager.instance.restPromptRef.SetActive(!UIManager.instance.restPromptRef.activeSelf);
-        }
-    }
-
 
     /// <summary>
     /// Adds or Clears Item Slots As Necessary

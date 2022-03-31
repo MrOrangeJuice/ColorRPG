@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
   - This way to adventure!
-  - Try not to die!
+  - Try not to die,
+  - and remember to match the enemy's color for stronger attacks.
