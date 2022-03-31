@@ -189,7 +189,15 @@ public class CombatManager : MonoBehaviour
             Combat c = transform.Find("Characters").GetChild(i).GetComponent<Combat>();
             if (EquipmentManager.instance != null)
             {
-                c.color = EquipmentManager.instance.currentColors[i];
+                if (EquipmentManager.instance.playerHealth[i] > 0)
+                {
+                    c.color = EquipmentManager.instance.currentColors[i];
+                    c.health = EquipmentManager.instance.playerHealth[i];
+                }
+                else
+                {
+                    c.gameObject.SetActive(false);
+                }
             }
            
             characters.Add(c);
@@ -215,7 +223,13 @@ public class CombatManager : MonoBehaviour
         }
         else
         {
-           // SceneManager.LoadScene("")
+
+            for (int i = 0; i < transform.Find("Characters").childCount; i++)
+            {
+                Combat c = transform.Find("Characters").GetChild(i).GetComponent<Combat>();
+                EquipmentManager.instance.playerHealth[i] = c.health;
+            }
+            SceneManager.LoadScene("DestinyScene");
         }
     }
 
@@ -237,7 +251,7 @@ public class CombatManager : MonoBehaviour
       
         if(characters.Count == 0)
         {
-            Debug.Log("Player Loses");
+            SceneManager.LoadScene("Loser");
             return;
         }
         if (CurrentLine != null)
