@@ -31,11 +31,13 @@ public class EquipmentManager : MonoBehaviour
 
         instance = this;
 
-        playerRef = FindObjectOfType<Player>();
+        
     }
 
     public void Start()
     {
+        playerRef = FindObjectOfType<Player>();
+
         currentColors = new Color[3];
 
         for (int i = 0; i < currentColors.Length; i++)

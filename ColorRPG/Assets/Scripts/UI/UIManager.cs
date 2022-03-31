@@ -27,6 +27,7 @@ public class UIManager : MonoBehaviour
     public InventorySlot equipmentSlot;
     public GameObject itemDescriptionRef;
     public Text healthText;
+    public GameObject inventoryButton;
     #endregion
 
     //Other Variables
@@ -47,16 +48,16 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null)
-        {
-            Debug.LogWarning("More than one instance of UIManager found");
-
-            if (this != instance)
-            {
-                Destroy(gameObject);
-            }
-            return;
-        }
+       //if (instance != null)
+       //{
+       //    Debug.LogWarning("More than one instance of UIManager found");
+       //
+       //    if (this != instance)
+       //    {
+       //        Destroy(gameObject);
+       //    }
+       //    return;
+       //}
 
         instance = this;
 
@@ -72,24 +73,11 @@ public class UIManager : MonoBehaviour
 
     public void Update()
     {
-        //Scene Switch For Testing
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        }
-
-        //Inputs for Opening UI
-
         //Open/Close Inventory
         if (Input.GetKeyDown(KeyCode.I) && !paused && townScene)
         {
             Btn_InventoryToggle();
         }
-
-        //if (Input.GetKeyDown(KeyCode.S) && !paused && townScene)
-        //{
-        //    Btn_ShopToggle();
-        //}
 
         if (Input.GetKeyDown(KeyCode.Escape) && optionsMenuRef.activeSelf && townScene)
         {
@@ -98,6 +86,11 @@ public class UIManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Escape) && townScene)
         {
             PauseMenuToggle();
+        }
+
+        if (!townScene && inventoryButton.activeSelf)
+        {
+            inventoryButton.SetActive(false);
         }
     }
 

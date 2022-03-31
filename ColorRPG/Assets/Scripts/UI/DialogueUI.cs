@@ -31,11 +31,12 @@ public class DialogueUI : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        playerRef = FindObjectOfType<Player>();
+
     }
 
     private void Start()
     {
+        playerRef = FindObjectOfType<Player>();
         //textRefs = transform.GetComponentsInChildren<TMP_Text>();
         //imageRefs = transform.GetComponentsInChildren<Image>();
         typewriterEffect = GetComponent<TypewriterEffect>();
