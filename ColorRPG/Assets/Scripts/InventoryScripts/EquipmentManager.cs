@@ -5,6 +5,7 @@ using UnityEngine;
 public class EquipmentManager : MonoBehaviour
 {
     public static EquipmentManager instance;
+    public Color currentTheme;
 
     public Equipment[] currentEquipment;
     public Color[] currentColors;

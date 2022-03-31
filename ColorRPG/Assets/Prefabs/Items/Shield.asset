@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Shield
   icon: {fileID: 21300000, guid: fddcd039c9405a743883df05afe53bb7, type: 3}
   amountSoldFor: 50
-  costInShop: 5
+  costInShop: 20
   description: Mixs a medium amount of yellow with the character's base color.
   armorModifier: 5
   damageModifier: 0

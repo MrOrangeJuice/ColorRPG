@@ -10,7 +10,19 @@ public class Enemy : MonoBehaviour
     //TODO: Smarter target selection
     public Combat PickTarget()
     {
-        return manager.characters[(int)(Random.value * manager.characters.Count)];
+        float[] weights = new float[manager.characters.Count];
+        float sum = 0;
+        for(int i = 0; i < weights.Length;i++)
+        {
+            weights[i] = ColorMixer.ColorDistance(combat.color, manager.characters[i].color);   
+            sum += weights[i];
+        }
+        for(int i = 0; i < weights.Length; i++)
+        {
+            weights[i] /= sum;
+        }
+
+        return manager.characters[RandomIndexFromWeights(weights)];
     }
 
     private void Start()
@@ -29,4 +41,29 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(.5f);
         manager.NoWaitAttack(combat, target);
     }
+
+    /// <summary>
+    ///Gets a random index based on weights from an array
+    /// </summary>
+    public int RandomIndexFromWeights(float[] weights)
+    {
+        float totalWeight = 0;
+        for (int i = 0; i < weights.Length; i++)
+        {
+            totalWeight += weights[i];
+        }
+        float roll = Random.value * totalWeight;
+        float num = 0;
+        for (int i = 0; i < weights.Length; i++)
+        {
+            num += weights[i];
+            if (num >= roll)
+            {
+                return i;
+            }
+        }
+        //shouldn't run 
+        return 0;
+    }
+
 }

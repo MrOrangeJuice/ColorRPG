@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CombatManager : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField]
     private CombatUIManager uiManager;
 
-    private List<Combat> turnOrder;
+    public List<Combat> turnOrder;
     private int turn;
 
     public List<Combat> enemies;
@@ -22,6 +23,9 @@ public class CombatManager : MonoBehaviour
     public List<Combat> swatches;
 
     private Combat currentTurn;
+    [SerializeField]
+    private EnemyGenerator enemyGenerator;
+    private int rounds;
 
     public SelectionLine CurrentLine
     {
@@ -81,8 +85,16 @@ public class CombatManager : MonoBehaviour
         {
             defender.health = 0;
             defender.Die();
+          
+            //Make sure we aren't skipping a turn
+            Debug.Log("Turn: " + turn + " Index of: " + turnOrder.IndexOf(defender));
+            if(turnOrder.IndexOf(defender) < turn)
+            {
+                turn--;
+            }
             turnOrder.Remove(defender);
-            if(!defender.CompareTag("Enemy"))
+
+            if (!defender.CompareTag("Enemy"))
             {
                 characters.Remove(defender);
             }
@@ -163,17 +175,13 @@ public class CombatManager : MonoBehaviour
 
     public void Awake()
     {
-        turn = 0;
+        
         turnOrder = new List<Combat>();
-
+        rounds = 0;
         //Set the lists
         foreach(Transform child in transform.Find("Swatches"))
         {
             swatches.Add(child.GetComponent<Combat>());
-        }
-        foreach(Transform child in transform.Find("Enemies"))
-        {
-            enemies.Add(child.GetComponent<Combat>());
         }
         for (int i = 0; i < transform.Find("Characters").childCount; i++)
         {
@@ -187,8 +195,28 @@ public class CombatManager : MonoBehaviour
             characters.Add(c);
             uiManager.AddUICard(c);
         }
-        SetAttackOrder();
-        BeginTurn();
+        BeginFight();
+    }
+
+    public void BeginFight()
+    {
+        if (rounds < 4)
+        {
+            foreach (Transform child in transform.Find("Enemies"))
+            {
+                enemies.Add(child.GetComponent<Combat>());
+            }
+            rounds++;
+            turnOrder.Clear();
+            turn = 0;
+            enemyGenerator.GenerateEnemies();   
+            SetAttackOrder();
+            BeginTurn();
+        }
+        else
+        {
+           // SceneManager.LoadScene("")
+        }
     }
 
     public void BeginTurn()
@@ -206,12 +234,8 @@ public class CombatManager : MonoBehaviour
     public void EndTurn()
     {
 
-        if(enemies.Count == 0)
-        {
-            Debug.Log("Player wins");
-            return;
-        }
-        else if(characters.Count == 0)
+      
+        if(characters.Count == 0)
         {
             Debug.Log("Player Loses");
             return;
@@ -225,7 +249,12 @@ public class CombatManager : MonoBehaviour
         currentTurn.transform.position += offset;
         SelectedCharacter = null;
         turn++;
-        if(turn >= turnOrder.Count )
+        if (enemies.Count == 0)
+        {
+            Debug.Log("Player wins");
+            BeginFight();
+        }
+        else if (turn >= turnOrder.Count )
         {
             StartRound();
         }
@@ -247,9 +276,10 @@ public class CombatManager : MonoBehaviour
     {
         uiManager.EnableColorPicker(attacker.color, swatch.color);
         yield return new WaitUntil(() => uiManager.picker.SelectedColor != Color.white);
-        swatch.attack += attacker.attack;
+        swatch.attack += attacker.attack * .75f;
         swatch.SetColor(uiManager.picker.SelectedColor);
         uiManager.DisableColorPicker();
+        uiManager.uiCards[attacker].actionPanel.SetActive(false);
 
     }
 

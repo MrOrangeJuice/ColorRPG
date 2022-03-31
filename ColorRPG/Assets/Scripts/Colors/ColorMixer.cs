@@ -109,5 +109,16 @@ public static class ColorMixer
 
     }
 
+    static public float ColorDistance(Color a, Color b)
+    {
+        float sqrDist = Mathf.Pow(a.r - b.r, 2) + Mathf.Pow(a.g - b.g, 2) + Mathf.Pow(a.b - b.b, 2);
+        return Mathf.Sqrt(sqrDist);
+    }
+
+    static public Color GetRandomColor()
+    {
+        return new Color(Random.value, Random.value, Random.value);
+    }
+
     
 }
