@@ -776,9 +776,11 @@ MonoBehaviour:
   multiplierMin: 0.5
   linePrefab: {fileID: 9041567848915196087, guid: 4c43ccb5ef485c542b4e7bff21741635, type: 3}
   uiManager: {fileID: 1661424536}
+  turnOrder: []
   enemies: []
   characters: []
   swatches: []
+  enemyGenerator: {fileID: 1263570460}
 --- !u!1 &864503374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1087,7 +1089,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1381316607510342447, guid: 5061f6685fac7974281630960aa38cbd, type: 3}
       propertyPath: attack
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1381316607510342447, guid: 5061f6685fac7974281630960aa38cbd, type: 3}
       propertyPath: health
@@ -1095,15 +1097,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1381316607510342447, guid: 5061f6685fac7974281630960aa38cbd, type: 3}
       propertyPath: color.b
-      value: 0.15566039
+      value: 0.15686274
       objectReference: {fileID: 0}
     - target: {fileID: 1381316607510342447, guid: 5061f6685fac7974281630960aa38cbd, type: 3}
       propertyPath: color.g
-      value: 0.89735764
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1381316607510342447, guid: 5061f6685fac7974281630960aa38cbd, type: 3}
       propertyPath: color.r
-      value: 1
+      value: 0.19011912
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5061f6685fac7974281630960aa38cbd, type: 3}
@@ -1116,6 +1118,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1263570459}
+  - component: {fileID: 1263570460}
   m_Layer: 0
   m_Name: Enemies
   m_TagString: Untagged
@@ -1140,6 +1143,28 @@ Transform:
   m_Father: {fileID: 746374060}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1263570460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263570458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ecd69665ad089f488144b7c6944bc22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  infoList:
+  - type: 0
+    sprite: {fileID: 0}
+    healthMin: 10
+    healthMax: 20
+    attackMin: 8
+    attackMax: 16
+    speedMin: 8
+    speedMax: 16
+  enemies: []
 --- !u!1 &1362837943
 GameObject:
   m_ObjectHideFlags: 0
@@ -1714,7 +1739,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1381316607510342447, guid: 5061f6685fac7974281630960aa38cbd, type: 3}
       propertyPath: attack
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1381316607510342447, guid: 5061f6685fac7974281630960aa38cbd, type: 3}
       propertyPath: health
@@ -1722,15 +1747,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1381316607510342447, guid: 5061f6685fac7974281630960aa38cbd, type: 3}
       propertyPath: color.b
-      value: 0.8650557
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1381316607510342447, guid: 5061f6685fac7974281630960aa38cbd, type: 3}
       propertyPath: color.g
-      value: 0.1033731
+      value: 0.26676023
       objectReference: {fileID: 0}
     - target: {fileID: 1381316607510342447, guid: 5061f6685fac7974281630960aa38cbd, type: 3}
       propertyPath: color.r
-      value: 0.9528302
+      value: 0.08018869
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5061f6685fac7974281630960aa38cbd, type: 3}
@@ -2000,7 +2025,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1381316607510342447, guid: 5061f6685fac7974281630960aa38cbd, type: 3}
       propertyPath: attack
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5061f6685fac7974281630960aa38cbd, type: 3}
