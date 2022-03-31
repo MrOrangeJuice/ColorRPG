@@ -2297,6 +2297,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &658203511 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 216495934811835928, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+  m_PrefabInstance: {fileID: 980267939}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c560969a26e1f47898b4b186d9dd71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &787155178
 GameObject:
   m_ObjectHideFlags: 0
@@ -2560,6 +2571,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2267763916928635067, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_Text
+      value: Green Adventure
+      objectReference: {fileID: 0}
     - target: {fileID: 2695306303870212669, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2823,6 +2838,12 @@ PrefabInstance:
     - target: {fileID: 2695306305458214528, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2919920683557397854, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_Text
+      value: 'Blue Adventure
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 3422334563625049102, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3116,6 +3137,38 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6403190469958550708, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403190469958550708, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403190469958550708, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 658203511}
+    - target: {fileID: 6403190469958550708, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403190469958550708, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Btn_SetColorThemeBlue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403190469958550708, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403190469958550708, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403190469958550708, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6510032404264571391, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
       propertyPath: m_SizeDelta.y
       value: 16.473
@@ -3199,6 +3252,38 @@ PrefabInstance:
     - target: {fileID: 7520136875135172792, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559302267395765636, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559302267395765636, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559302267395765636, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 658203511}
+    - target: {fileID: 7559302267395765636, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559302267395765636, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Btn_SetColorThemeGreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559302267395765636, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559302267395765636, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559302267395765636, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7912676874358719048, guid: 186ca1acfe9df234c94d99d3c1296fa3, type: 3}
       propertyPath: m_AnchorMax.y
