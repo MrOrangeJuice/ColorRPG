@@ -11,6 +11,11 @@ public class Item : ScriptableObject
     public int costInShop = 5;
     public string description = "";
 
+    public virtual void onAdd()
+    {
+
+    }
+
     /// <summary>
     /// Item's effect on use
     /// </summary>
