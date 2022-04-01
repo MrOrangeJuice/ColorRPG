@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuUI : MonoBehaviour
 {
+    public GameObject controlsMenu;
+
     /// <summary>
     /// Quits the game
     /// </summary>
@@ -23,5 +25,10 @@ public class MainMenuUI : MonoBehaviour
             UIManager.instance.townScene = true;
             //UIManager.instance.townMenuRef.SetActive(true);
         }
+    }
+
+    public void Btn_ToggleControls()
+    {
+        controlsMenu.SetActive(!controlsMenu.activeSelf);
     }
 }

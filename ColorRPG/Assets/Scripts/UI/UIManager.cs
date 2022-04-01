@@ -158,7 +158,7 @@ public class UIManager : MonoBehaviour
             sellItemPromptRef.SetActive(false);
         }
 
-        buyItemPromptRef.GetComponentInChildren<Text>().text = "Buy item for " + itemToUse.amountSoldFor + "?";
+        buyItemPromptRef.GetComponentInChildren<Text>().text = "Buy item for " + itemToUse.costInShop + "?";
     }
 
     /// <summary>
