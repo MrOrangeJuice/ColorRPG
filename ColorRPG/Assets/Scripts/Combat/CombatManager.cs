@@ -27,9 +27,19 @@ public class CombatManager : MonoBehaviour
     private EnemyGenerator enemyGenerator;
     private int rounds;
 
+    private Csv csv;
+
     public SelectionLine CurrentLine
     {
         get { return currentLine; }
+        set
+        {
+            if(currentLine != null)
+            {
+                Destroy(CurrentLine.gameObject);
+            }
+            currentLine = value;
+        }
     }
     public void BeginAttackSelection(Transform attackerTransform)
     {
@@ -37,7 +47,7 @@ public class CombatManager : MonoBehaviour
         SelectionLine line = Instantiate(linePrefab).GetComponent<SelectionLine>();
         line.transform.position = Vector3.zero;
         line.Activate(attackerTransform.position, SelectedCharacter.color);
-        currentLine = line;
+        CurrentLine = line;
     }
 
     public float ComputeMultiplier(Color color , Color other)
@@ -79,7 +89,12 @@ public class CombatManager : MonoBehaviour
         }
 
         yield return new WaitUntil(() => uiManager.picker.SelectedColor != Color.white);
-        int damage = (int)(attacker.attack * ComputeMultiplier(attacker.color, defender.color));
+        float mult = ComputeMultiplier(attacker.color, defender.color);
+        csv.AddRow(csv.Rows.Count.ToString());
+        csv.Rows[(csv.Rows.Count - 1).ToString()].Add(ColorMixer.ColorDistance(attacker.color, defender.color));
+        csv.Rows[(csv.Rows.Count-1).ToString()].Add(mult);
+
+        int damage = (int)(attacker.attack * mult);
         defender.health -= damage;
         if (defender.health <= 0)
         {
@@ -178,6 +193,12 @@ public class CombatManager : MonoBehaviour
         
         turnOrder = new List<Combat>();
         rounds = 0;
+
+        //Logging
+        csv = Logger.Log.CreateCsv("ColorDistance", "Color");
+        csv.AddLabels(new List<string>() { " ", "Distance", "Multiplier" });
+
+
         //Set the lists
         foreach(Transform child in transform.Find("Swatches"))
         {
@@ -297,6 +318,11 @@ public class CombatManager : MonoBehaviour
 
     }
 
- 
+    private void OnDisable()
+    {
+        Debug.Log("disabled");
+        Logger.Log.WriteAllLogFiles();
+    }
+
 
 }
